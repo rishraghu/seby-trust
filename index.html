@@ -25,8 +25,8 @@ body.golden {
   --score-col:#fde047; --score-glow:rgba(253,224,71,0.5);
   --scales:rgba(234,179,8,0.06);
 }
-body.golden .btn-plus { border-color:#713f12 !important; color:#eab308 !important; }
-body.golden .tally-plus { color:#eab308 !important; border-color:#713f12 !important; }
+body.golden .btn-plus  { border-color:#713f12 !important; color:#eab308 !important; }
+body.golden .tally-plus{ color:#eab308 !important; border-color:#713f12 !important; }
 
 body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif; min-height:100vh; display:flex; justify-content:center; padding:0 0 48px; transition:background .8s; }
 .app { width:100%; max-width:440px; }
@@ -36,12 +36,12 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
 .scales { position:absolute; inset:0; pointer-events:none;
   background-image:repeating-linear-gradient(120deg,transparent 0,transparent 18px,var(--scales) 18px,var(--scales) 20px),
                    repeating-linear-gradient(60deg,transparent 0,transparent 18px,var(--scales) 18px,var(--scales) 20px); }
-.ninja-wrap { position:relative; display:inline-block; line-height:1; margin-bottom:4px; }
-.ninja-aura { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; z-index:1; width:0; height:0; opacity:0; transition:all .6s; }
+.ninja-wrap  { position:relative; display:inline-block; line-height:1; margin-bottom:4px; }
+.ninja-aura  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; z-index:1; width:0; height:0; opacity:0; transition:all .6s; }
 .ninja-wings { position:absolute; top:50%; left:50%; transform:translate(-50%,-46%); font-size:0; opacity:0; pointer-events:none; z-index:1; transition:font-size .5s,opacity .5s; }
-.ninja-fx { position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:0; opacity:0; white-space:nowrap; pointer-events:none; z-index:3; transition:font-size .4s,opacity .4s; }
+.ninja-fx    { position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:0; opacity:0; white-space:nowrap; pointer-events:none; z-index:3; transition:font-size .4s,opacity .4s; }
 .ninja-crown { position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:0; opacity:0; pointer-events:none; z-index:4; transition:font-size .4s,opacity .4s; }
-.ninja-body { font-size:72px; display:block; position:relative; z-index:2; animation:bob 3.5s ease-in-out infinite; transition:filter .6s; }
+.ninja-body  { font-size:72px; display:block; position:relative; z-index:2; animation:bob 3.5s ease-in-out infinite; transition:filter .6s; }
 
 .stage-1 .ninja-body  { filter:drop-shadow(0 0 12px rgba(34,197,94,.75)); }
 .stage-1 .ninja-fx    { font-size:20px; opacity:1; }
@@ -86,14 +86,37 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
 .tally-minus { color:var(--red);     border-color:var(--red-dim); }
 .level-pill { display:inline-block; margin-top:14px; background:var(--gold-dim); border:2px solid var(--gold); color:var(--gold); font-family:'Bangers',cursive; font-size:15px; letter-spacing:2px; padding:4px 18px; border-radius:100px; transition:all .6s; }
 
-/* BUTTONS */
-.btn-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:0 24px 24px; background:var(--bg); transition:background .8s; }
+/* MAIN +/- BUTTONS */
+.btn-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:0 24px 16px; background:var(--bg); transition:background .8s; }
 .trust-btn { height:100px; border-radius:16px; border:3px solid; font-family:'Bangers',cursive; font-size:60px; line-height:1; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; background:transparent; user-select:none; -webkit-tap-highlight-color:transparent; transition:background .15s; }
 .trust-btn span { font-family:'Nunito',sans-serif; font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-top:-2px; }
 .btn-minus { border-color:var(--red-dim); color:var(--red); }
 .btn-minus:active { background:var(--red-dim); }
 .btn-plus  { border-color:var(--pdim); color:var(--primary); }
 .btn-plus:active  { background:var(--pdim); }
+
+/* QUICK BONUS BUTTONS */
+.quick-label { padding:2px 24px 10px; font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--muted); background:var(--bg); }
+.quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 24px 24px; background:var(--bg); }
+.quick-btn {
+  border-radius:12px; border:2px solid; padding:12px 10px;
+  cursor:pointer; display:flex; align-items:center; gap:10px;
+  background:transparent; user-select:none; -webkit-tap-highlight-color:transparent;
+  transition:background .15s, opacity .2s;
+  position:relative; overflow:hidden;
+}
+.quick-btn.used { opacity:.45; cursor:pointer; }
+.quick-btn.used::after { content:'✓ TAP TO UNDO'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Bangers',cursive; font-size:13px; letter-spacing:2px; background:rgba(0,0,0,.6); border-radius:10px; color:#aaa; }
+.quick-btn.pos-btn { border-color:var(--pdim); color:var(--primary); }
+.quick-btn.neg-btn { border-color:var(--red-dim); color:var(--red); }
+.quick-btn.pos-btn:not(.used):active { background:var(--pdim); }
+.quick-btn.neg-btn:not(.used):active { background:var(--red-dim); }
+.qb-icon { font-size:26px; flex-shrink:0; }
+.qb-info { flex:1; text-align:left; }
+.qb-name { font-size:13px; font-weight:900; }
+.qb-pts  { font-family:'Bangers',cursive; font-size:15px; letter-spacing:1px; margin-top:1px; }
+.qb-pts.pos { color:var(--primary); }
+.qb-pts.neg { color:var(--red); }
 
 /* DIVIDER */
 .divider { height:2px; margin:0 24px; background:var(--border); border-radius:2px; transition:background .6s; }
@@ -102,16 +125,16 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
 .week-label { padding:18px 24px 10px; font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--muted); background:var(--bg); }
 .week-strip { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; padding:0 24px 24px; background:var(--bg); }
 .day-cell { background:var(--surface2); border:2px solid var(--border); border-radius:10px; padding:8px 4px 6px; text-align:center; cursor:pointer; transition:border-color .2s; }
-.day-cell.active   { border-color:var(--acid); }
-.day-cell.day-pos  { border-color:var(--pdim); }
-.day-cell.day-neg  { border-color:var(--red-dim); }
+.day-cell.active      { border-color:var(--acid); }
+.day-cell.day-pos     { border-color:var(--pdim); }
+.day-cell.day-neg     { border-color:var(--red-dim); }
 .day-cell.active.day-pos { border-color:var(--primary); }
 .day-cell.active.day-neg { border-color:var(--red); }
 .day-name { font-size:9px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
 .day-val  { font-family:'Bangers',cursive; font-size:20px; line-height:1.1; margin-top:2px; color:var(--border); }
 .day-val.vpos { color:var(--primary); }
 .day-val.vneg { color:var(--red); }
-.cal-dot  { width:5px; height:5px; border-radius:50%; background:var(--acid); margin:3px auto 0; transition:background .6s; }
+.cal-dot  { width:5px; height:5px; border-radius:50%; background:var(--acid); margin:3px auto 0; }
 
 /* CALENDAR */
 .cal-section { padding:0 24px 20px; background:var(--bg); display:none; }
@@ -122,19 +145,19 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
 .cal-time { font-size:11px; color:#4a7fa0; font-weight:800; margin-top:1px; }
 
 /* UNLOCKS */
-.unlocks-wrap { background:var(--bg); padding-bottom:4px; }
+.unlocks-wrap  { background:var(--bg); padding-bottom:4px; }
 .unlocks-label { padding:14px 24px 12px; font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
-.unlocks-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 24px 24px; }
+.unlocks-grid  { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 24px 24px; }
 .unlock-card { background:var(--surface2); border:2px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; position:relative; overflow:hidden; transition:border-color .3s,background .6s; }
 .unlock-card.earned { border-color:var(--gold); background:#1c1600; }
-.lock-veil { position:absolute; inset:0; background:rgba(0,0,0,.62); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:28px; }
+.lock-veil { position:absolute; inset:0; background:rgba(0,0,0,.62); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:24px; }
 .unlock-card.earned .lock-veil { display:none; }
 .unlock-icon { font-size:34px; }
 .unlock-name { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:#555; margin-top:5px; }
 .unlock-card.earned .unlock-name { color:var(--gold); }
-.unlock-pts  { font-family:'Bangers',cursive; font-size:13px; color:#333; margin-top:2px; letter-spacing:1px; }
-.unlock-card.earned .unlock-pts  { color:var(--primary); font-size:12px; }
-.unlock-prog { font-family:'Bangers',cursive; font-size:13px; color:var(--muted); margin-top:2px; letter-spacing:1px; }
+.unlock-pts  { font-family:'Bangers',cursive; font-size:12px; color:#333; margin-top:2px; }
+.unlock-card.earned .unlock-pts  { color:var(--primary); }
+.unlock-prog { font-family:'Bangers',cursive; font-size:12px; color:var(--muted); margin-top:2px; }
 
 /* RESET */
 .reset-row { padding:0 24px 8px; background:var(--bg); }
@@ -142,23 +165,14 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
 .reset-btn:active { border-color:var(--red); color:var(--red); }
 .footer-txt { text-align:center; font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--border); padding:12px 0 0; background:var(--bg); }
 
-/* SAVE STATUS */
-.save-status { text-align:center; font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:6px; color:var(--muted); background:var(--bg); min-height:24px; transition:color .3s; }
-.save-status.saving { color:var(--gold); }
-.save-status.saved  { color:var(--primary); }
-.save-status.error  { color:var(--red); }
-
 /* DRAGON OVERLAY */
 .dragon-overlay { position:fixed; inset:0; pointer-events:none; z-index:999; background:radial-gradient(circle,rgba(253,224,71,.88) 0%,rgba(234,179,8,.55) 40%,transparent 70%); opacity:0; }
 .dragon-overlay.flash { animation:dragonflash 1.6s ease forwards; }
-
-/* LOADING */
-.loading { display:flex; align-items:center; justify-content:center; height:100vh; font-family:'Bangers',cursive; font-size:24px; letter-spacing:3px; color:var(--primary); }
 </style>
 </head>
 <body>
 <div class="dragon-overlay" id="dragonOverlay"></div>
-<div class="app" id="app" style="display:none">
+<div class="app">
 
   <div class="header">
     <div class="scales"></div>
@@ -183,16 +197,20 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
     <div class="level-pill" id="levelPill">⚡ Level 1 Ninja</div>
   </div>
 
+  <!-- MAIN BUTTONS -->
   <div class="btn-row">
     <div class="trust-btn btn-minus" onclick="tap(-1)">−<span>Trust Lost</span></div>
     <div class="trust-btn btn-plus"  onclick="tap(+1)">+<span>Trust Earned</span></div>
   </div>
 
+  <!-- QUICK BUTTONS -->
+  <div class="quick-label">Quick Add — Today</div>
+  <div class="quick-grid" id="quickGrid"></div>
+
   <div class="divider"></div>
 
   <div class="week-label">This Week</div>
   <div class="week-strip" id="weekStrip"></div>
-
   <div class="cal-section" id="calSection"></div>
 
   <div class="divider"></div>
@@ -205,18 +223,10 @@ body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif;
   <div class="reset-row">
     <button class="reset-btn" onclick="resetWeek()">↺ Reset Week</button>
   </div>
-  <div class="save-status" id="saveStatus">☁️ syncing...</div>
   <div class="footer-txt">Spinjitzu Training In Progress</div>
 
 </div>
-<div class="loading" id="loading">🥷 LOADING...</div>
-
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────
-const STORAGE_KEY = 'seby-trust-v1';
-const API_URL     = 'https://api.anthropic.com/v1/messages';
-const MODEL       = 'claude-sonnet-4-6';
-
 const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
 const CALENDAR = {
@@ -229,17 +239,26 @@ const CALENDAR = {
 const UNLOCKS = [
   {icon:'🎬',name:'Plex Movie',      req:5 },
   {icon:'🎮',name:'Nintendo Switch', req:10},
-  {icon:'🍦',name:'Choose Dessert',  req:15},
-  {icon:'📱',name:'iPad Time',       req:20},
+  {icon:'📱',name:'iPad Time',       req:15},
+  {icon:'🎨',name:'Pick New Theme',  req:20},
+];
+
+// Quick buttons — positive pts = earned, negative = lost
+const QUICK = [
+  {id:'homework',  icon:'📚', name:'Homework',     pts:+2, pos:true },
+  {id:'ready',     icon:'🎒', name:'Getting Ready', pts:+1, pos:true },
+  {id:'behaviour', icon:'⭐', name:'Good Behaviour', pts:+1, pos:true },
+  {id:'sleep',     icon:'😴', name:'Sleep',         pts:+5, pos:true },
 ];
 
 const STAGES = [
-  {min:-999,stage:0,body:'🥷',sub:'THE GREEN NINJA', golden:false},
-  {min:0,   stage:0,body:'🥷',sub:'THE GREEN NINJA', golden:false},
-  {min:5,   stage:1,body:'🥷',sub:'FIRE NINJA',      golden:false},
-  {min:10,  stage:2,body:'🥷',sub:'FLAME NINJA',     golden:false},
-  {min:15,  stage:3,body:'🥷',sub:'WINGED NINJA',    golden:false},
-  {min:20,  stage:4,body:'🐉',sub:'GOLDEN DRAGON',   golden:true },
+  {min:-999,stage:0,body:'🥷',sub:'THE GREEN NINJA',golden:false},
+  {min:0,   stage:0,body:'🥷',sub:'THE GREEN NINJA',golden:false},
+  {min:5,   stage:1,body:'🥷',sub:'FIRE NINJA',     golden:false},
+  {min:10,  stage:2,body:'🥷',sub:'FLAME NINJA',    golden:false},
+  {min:13,  stage:3,body:'🥷',sub:'WINGED NINJA',   golden:false},
+  {min:15,  stage:3,body:'🥷',sub:'WINGED NINJA',   golden:false},
+  {min:20,  stage:4,body:'🐉',sub:'GOLDEN DRAGON',  golden:true },
 ];
 
 const LEVELS = [
@@ -247,127 +266,81 @@ const LEVELS = [
   {min:0,   label:'⚡ Level 1 Ninja'},
   {min:5,   label:'🔥 Level 2 Ninja'},
   {min:10,  label:'🔥🔥 Level 3 Sensei'},
+  {min:13,  label:'🦅 Spinjitzu Master'},
   {min:15,  label:'🦅 Spinjitzu Master'},
   {min:20,  label:'🐉 Golden Dragon Master'},
 ];
 
 // ── STATE ──────────────────────────────────────────────────────────────
+// scores: { Mon: 2, Tue: -1, ... }
+// used:   { '2024-06-24': { homework: true, sleep: true, ... } }
 let scores = Object.fromEntries(DAYS.map(d=>[d,0]));
-let activeDay = (() => { const d=new Date().getDay(); return d===0?6:d-1; })();
-let wasGolden = false;
-let saveTimer = null;
+let used   = {};
 
-// ── CLOUD STORAGE via Anthropic API ────────────────────────────────────
-async function cloudGet() {
-  try {
-    const res = await fetch(API_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 500,
-        system: `You are a key-value storage assistant. When asked to GET a key, respond with ONLY the stored JSON value, or the word NULL if not found. When asked to SET a key, respond with only the word OK.`,
-        messages:[{role:'user',content:`GET ${STORAGE_KEY}`}]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.[0]?.text?.trim();
-    if (!text || text === 'NULL') return null;
-    return JSON.parse(text);
-  } catch(e) { return null; }
+// used is keyed by day name: { Mon: { homework: true }, Tue: {} ... }
+
+try {
+  const s = JSON.parse(localStorage.getItem('sebyScores') || '{}');
+  DAYS.forEach(d => { scores[d] = s[d] ?? 0; });
+} catch(e) {}
+try {
+  used = JSON.parse(localStorage.getItem('sebyUsed') || '{}');
+  DAYS.forEach(d => { if (!used[d]) used[d] = {}; });
+} catch(e) {
+  used = Object.fromEntries(DAYS.map(d=>[d,{}]));
 }
 
-async function cloudSet(val) {
-  try {
-    await fetch(API_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 50,
-        system: `You are a key-value storage assistant. When asked to SET a key, respond with only the word OK.`,
-        messages:[{role:'user',content:`SET ${STORAGE_KEY} ${JSON.stringify(val)}`}]
-      })
-    });
-  } catch(e) {}
-}
+const todayIdx = (() => { const d=new Date().getDay(); return d===0?6:d-1; })();
+let activeDay  = todayIdx;
+let wasGolden  = false;
 
-// Use window.storage (Claude artifact persistent storage) with localStorage fallback
-async function load() {
-  // Try Claude artifact storage first
-  if (window.storage) {
-    try {
-      const result = await window.storage.get(STORAGE_KEY);
-      if (result && result.value) return JSON.parse(result.value);
-    } catch(e) {}
-  }
-  // Fallback to localStorage
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) return JSON.parse(saved);
-  } catch(e) {}
-  return null;
-}
-
-async function save() {
-  setStatus('saving');
-  const val = JSON.stringify(scores);
-  let ok = false;
-  // Try Claude artifact storage
-  if (window.storage) {
-    try {
-      await window.storage.set(STORAGE_KEY, val);
-      ok = true;
-    } catch(e) {}
-  }
-  // Always also save to localStorage as backup
-  try { localStorage.setItem(STORAGE_KEY, val); ok = true; } catch(e) {}
-  setStatus(ok ? 'saved' : 'error');
-  setTimeout(() => setStatus(''), 2000);
-}
-
-function setStatus(state) {
-  const el = document.getElementById('saveStatus');
-  el.className = 'save-status' + (state ? ' '+state : '');
-  el.textContent = state === 'saving' ? '☁️ Saving...' : state === 'saved' ? '✅ Synced' : state === 'error' ? '⚠️ Save failed' : '';
-}
-
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(save, 600);
-}
-
-// ── HELPERS ─────────────────────────────────────────────────────────────
 function net()    { return DAYS.reduce((s,d)=>s+scores[d],0); }
 function earned() { return DAYS.reduce((s,d)=>s+Math.max(0,scores[d]),0); }
 function lost()   { return DAYS.reduce((s,d)=>s+Math.abs(Math.min(0,scores[d])),0); }
-function getStage(n) { return [...STAGES].reverse().find(s=>n>=s.min); }
-function getLevel(n) { return [...LEVELS].reverse().find(l=>n>=l.min); }
+function getStage(n){ return [...STAGES].reverse().find(s=>n>=s.min); }
+function getLevel(n){ return [...LEVELS].reverse().find(l=>n>=l.min); }
 
-// ── ACTIONS ─────────────────────────────────────────────────────────────
+function saveAll() {
+  try { localStorage.setItem('sebyScores', JSON.stringify(scores)); } catch(e){}
+  try { localStorage.setItem('sebyUsed',   JSON.stringify(used));   } catch(e){}
+}
+
 function tap(delta) {
   scores[DAYS[activeDay]] = (scores[DAYS[activeDay]]||0) + delta;
-  scheduleSave();
-  render();
-}
-function resetWeek() {
-  DAYS.forEach(d=>scores[d]=0);
-  scheduleSave();
-  render();
+  saveAll(); render();
 }
 
-// ── RENDER ───────────────────────────────────────────────────────────────
+function tapQuick(id, pts) {
+  const dk = DAYS[activeDay];
+  if (!used[dk]) used[dk] = {};
+  if (used[dk][id]) {
+    // untick — reverse the points
+    used[dk][id] = false;
+    scores[dk] = (scores[dk]||0) - pts;
+  } else {
+    // tick — add the points
+    used[dk][id] = true;
+    scores[dk] = (scores[dk]||0) + pts;
+  }
+  saveAll(); render();
+}
+
+function resetWeek() {
+  DAYS.forEach(d=>{ scores[d]=0; });
+  used = Object.fromEntries(DAYS.map(d=>[d,{}]));
+  saveAll(); render();
+}
+
 function render() {
-  const n = net();
+  const n  = net();
   const sd = getStage(n);
   const lv = getLevel(n);
+  const tk = DAYS[activeDay];
 
-  // Score number
+  // Score
   const sEl = document.getElementById('scoreNum');
   sEl.textContent = (n>0?'+':'') + n;
   sEl.className = 'score-num' + (n>0?'':n<0?' neg':' zero');
-
-  // Tally
   document.getElementById('tallyPlus').textContent  = '▲ '+earned()+' earned';
   document.getElementById('tallyMinus').textContent = '▼ '+lost()+' lost';
   document.getElementById('levelPill').textContent  = lv.label;
@@ -381,23 +354,32 @@ function render() {
   if (sd.golden && !wasGolden) {
     document.body.classList.add('golden');
     const ov = document.getElementById('dragonOverlay');
-    ov.classList.remove('flash');
-    void ov.offsetWidth;
-    ov.classList.add('flash');
-  } else if (!sd.golden) {
-    document.body.classList.remove('golden');
-  }
+    ov.classList.remove('flash'); void ov.offsetWidth; ov.classList.add('flash');
+  } else if (!sd.golden) { document.body.classList.remove('golden'); }
   wasGolden = sd.golden;
+
+  // Quick buttons
+  const qg = document.getElementById('quickGrid');
+  qg.innerHTML = '';
+  QUICK.forEach(q => {
+    const isUsed = used[tk]?.[q.id] === true;
+    const cls = `quick-btn ${q.pos?'pos-btn':'neg-btn'}${isUsed?' used':''}`;
+    const ptsLabel = (q.pts>0?'+':'')+q.pts+' pts';
+    qg.innerHTML += `<div class="${cls}" onclick="tapQuick('${q.id}',${q.pts})">
+      <div class="qb-icon">${q.icon}</div>
+      <div class="qb-info">
+        <div class="qb-name">${q.name}</div>
+        <div class="qb-pts ${q.pos?'pos':'neg'}">${ptsLabel}</div>
+      </div>
+    </div>`;
+  });
 
   // Week strip
   const strip = document.getElementById('weekStrip');
   strip.innerHTML = '';
   DAYS.forEach((d,i) => {
     const v = scores[d];
-    const cls = ['day-cell',
-      i===activeDay?'active':'',
-      v>0?'day-pos':v<0?'day-neg':''
-    ].filter(Boolean).join(' ');
+    const cls = ['day-cell', i===activeDay?'active':'', v>0?'day-pos':v<0?'day-neg':''].filter(Boolean).join(' ');
     const dot = CALENDAR[i] ? '<div class="cal-dot"></div>' : '';
     strip.innerHTML += `<div class="${cls}" onclick="setDay(${i})">
       <div class="day-name">${d}</div>
@@ -415,9 +397,7 @@ function render() {
       <div class="cal-icon">${ev.icon}</div>
       <div><div class="cal-name">${ev.name}</div><div class="cal-time">${ev.sub}</div></div>
     </div>`).join('');
-  } else {
-    cal.className = 'cal-section';
-  }
+  } else { cal.className = 'cal-section'; }
 
   // Unlocks
   document.getElementById('unlocksGrid').innerHTML = UNLOCKS.map(u => {
@@ -426,24 +406,14 @@ function render() {
       <div class="lock-veil">🔒</div>
       <div class="unlock-icon">${u.icon}</div>
       <div class="unlock-name">${u.name}</div>
-      <div class="unlock-pts">${ok?'✅ Unlocked!':u.req+' pts needed'}</div>
-      ${!ok?`<div class="unlock-prog">${Math.max(0,n)} / ${u.req}</div>`:''}
+      <div class="unlock-pts">${ok?'✅ Done!':u.req+' pts'}</div>
+      ${!ok?`<div class="unlock-prog">${Math.max(0,n)}/${u.req}</div>`:''}
     </div>`;
   }).join('');
 }
 
 function setDay(i) { activeDay=i; render(); }
-
-// ── INIT ─────────────────────────────────────────────────────────────────
-(async () => {
-  const saved = await load();
-  if (saved) {
-    DAYS.forEach(d => { scores[d] = saved[d] ?? 0; });
-  }
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  render();
-})();
+render();
 </script>
 </body>
 </html>
